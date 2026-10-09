@@ -1,0 +1,18 @@
+-DBUILD_SHARED_LIBS=On causes issues for windows target
+
+https://github.com/trcrsired/llvm-project/commit/d16bbeffbb155b6023db63448edcfa4c610caea2#diff-16accbdf8f19dace3e7179b2170b74da48a0f570a3b1aad7fd8372a218622dd6
+
+clang-tools-extra/clangd/test/plugins/CMakeLists.txt
+
+if (NOT WIN32 OR NOT LLVM_LINK_LLVM_DYLIB)
+  llvm_add_library(
+      ClangdFeatureModuleExample
+      MODULE FeatureModuleExample.cpp
+      PLUGIN_TOOL clangd
+      PARTIAL_SOURCES_INTENDED)
+  llvm_add_library(
+      ClangdStandaloneTweakExample
+      MODULE StandaloneTweakExample.cpp
+      PLUGIN_TOOL clangd
+      PARTIAL_SOURCES_INTENDED)
+endif()
